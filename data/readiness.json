@@ -1,0 +1,17 @@
+{
+  "score": 82,
+  "grade": "GREEN",
+  "components": {
+    "oura_readiness": 80,
+    "oura_stale": false,
+    "sleep_quality": 78,
+    "recent_load": 75,
+    "injury_flag": 0,
+    "load_risk_flag": 0,
+    "acwr": 1.05,
+    "tsb": -8.0,
+    "tsb_stale": false
+  },
+  "updated": "2026-08-20T08:00:00",
+  "source": "example"
+}

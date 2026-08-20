@@ -1,0 +1,40 @@
+{
+  "week_start": "2026-08-17",
+  "cycle_week": 2,
+  "cycle_type": "BUILD",
+  "phase": 2,
+  "phase_desc": "example build week",
+  "target_km": 40,
+  "actual_km": 18,
+  "long_run_target_km": 14,
+  "days_left": 3,
+  "aerobic_min_done": 90,
+  "aerobic_min_target": 150,
+  "budget": {
+    "quality": {
+      "target": 1,
+      "done": 0,
+      "remaining": 1
+    },
+    "long_run": {
+      "target": 1,
+      "done": 0,
+      "remaining": 1
+    },
+    "easy_run": {
+      "target": 3,
+      "done": 2,
+      "remaining": 1
+    },
+    "full_body_gym": {
+      "target": 2,
+      "done": 1,
+      "remaining": 1
+    },
+    "recovery": {
+      "target": 1,
+      "done": 0,
+      "remaining": 1
+    }
+  }
+}

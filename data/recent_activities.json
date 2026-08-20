@@ -1,0 +1,111 @@
+[
+  {
+    "name": "Easy Z2",
+    "type": "Run",
+    "date": "2026-08-18",
+    "distance_km": 8.0,
+    "duration_min": 52,
+    "avg_hr": 138,
+    "max_hr": 148,
+    "trainer": true
+  },
+  {
+    "name": "Easy Z2",
+    "type": "Run",
+    "date": "2026-08-20",
+    "distance_km": 10.0,
+    "duration_min": 65,
+    "avg_hr": 140,
+    "max_hr": 150,
+    "trainer": true
+  },
+  {
+    "name": "Strength",
+    "type": "WeightTraining",
+    "date": "2026-08-19",
+    "distance_km": 0,
+    "duration_min": 45,
+    "avg_hr": null,
+    "max_hr": null
+  },
+  {
+    "name": "Easy Z2",
+    "type": "Run",
+    "date": "2026-08-10",
+    "distance_km": 8.0,
+    "duration_min": 50,
+    "avg_hr": 139,
+    "max_hr": 147,
+    "trainer": true
+  },
+  {
+    "name": "Long Z2",
+    "type": "Run",
+    "date": "2026-08-15",
+    "distance_km": 14.0,
+    "duration_min": 95,
+    "avg_hr": 141,
+    "max_hr": 152,
+    "trainer": false
+  },
+  {
+    "name": "Easy Z2",
+    "type": "Run",
+    "date": "2026-08-03",
+    "distance_km": 8.0,
+    "duration_min": 50,
+    "avg_hr": 139,
+    "max_hr": 147,
+    "trainer": true
+  },
+  {
+    "name": "Long Z2",
+    "type": "Run",
+    "date": "2026-08-08",
+    "distance_km": 14.0,
+    "duration_min": 95,
+    "avg_hr": 141,
+    "max_hr": 152,
+    "trainer": false
+  },
+  {
+    "name": "Easy Z2",
+    "type": "Run",
+    "date": "2026-07-27",
+    "distance_km": 8.0,
+    "duration_min": 50,
+    "avg_hr": 139,
+    "max_hr": 147,
+    "trainer": true
+  },
+  {
+    "name": "Long Z2",
+    "type": "Run",
+    "date": "2026-08-01",
+    "distance_km": 14.0,
+    "duration_min": 95,
+    "avg_hr": 141,
+    "max_hr": 152,
+    "trainer": false
+  },
+  {
+    "name": "Easy Z2",
+    "type": "Run",
+    "date": "2026-07-20",
+    "distance_km": 8.0,
+    "duration_min": 50,
+    "avg_hr": 139,
+    "max_hr": 147,
+    "trainer": true
+  },
+  {
+    "name": "Long Z2",
+    "type": "Run",
+    "date": "2026-07-25",
+    "distance_km": 14.0,
+    "duration_min": 95,
+    "avg_hr": 141,
+    "max_hr": 152,
+    "trainer": false
+  }
+]

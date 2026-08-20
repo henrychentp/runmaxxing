@@ -1,0 +1,152 @@
+{
+  "period": "example 14 nights",
+  "sleep": {
+    "avg_duration": 7.4,
+    "nights_under_7h": 2,
+    "nights_8h_plus": 3,
+    "avg_bedtime": "22:30",
+    "bedtime_consistency": "good"
+  },
+  "hrv": {
+    "average": 60,
+    "trend": "STABLE",
+    "baseline_30d": 58,
+    "baseline_30d_sd": 6,
+    "daily": [
+      {
+        "day": "2026-08-07",
+        "hrv": 55
+      },
+      {
+        "day": "2026-08-08",
+        "hrv": 58
+      },
+      {
+        "day": "2026-08-09",
+        "hrv": 61
+      },
+      {
+        "day": "2026-08-10",
+        "hrv": 64
+      },
+      {
+        "day": "2026-08-11",
+        "hrv": 67
+      },
+      {
+        "day": "2026-08-12",
+        "hrv": 55
+      },
+      {
+        "day": "2026-08-13",
+        "hrv": 58
+      },
+      {
+        "day": "2026-08-14",
+        "hrv": 61
+      },
+      {
+        "day": "2026-08-15",
+        "hrv": 64
+      },
+      {
+        "day": "2026-08-16",
+        "hrv": 67
+      },
+      {
+        "day": "2026-08-17",
+        "hrv": 55
+      },
+      {
+        "day": "2026-08-18",
+        "hrv": 58
+      },
+      {
+        "day": "2026-08-19",
+        "hrv": 61
+      },
+      {
+        "day": "2026-08-20",
+        "hrv": 64
+      }
+    ]
+  },
+  "resting_hr": {
+    "trend": "STABLE",
+    "average": 58
+  },
+  "nightly": [
+    {
+      "day": "2026-08-07",
+      "duration": 7.2,
+      "score": 75
+    },
+    {
+      "day": "2026-08-08",
+      "duration": 7.4,
+      "score": 75
+    },
+    {
+      "day": "2026-08-09",
+      "duration": 7.6000000000000005,
+      "score": 75
+    },
+    {
+      "day": "2026-08-10",
+      "duration": 7.2,
+      "score": 75
+    },
+    {
+      "day": "2026-08-11",
+      "duration": 7.4,
+      "score": 75
+    },
+    {
+      "day": "2026-08-12",
+      "duration": 7.6000000000000005,
+      "score": 75
+    },
+    {
+      "day": "2026-08-13",
+      "duration": 7.2,
+      "score": 75
+    },
+    {
+      "day": "2026-08-14",
+      "duration": 7.4,
+      "score": 75
+    },
+    {
+      "day": "2026-08-15",
+      "duration": 7.6000000000000005,
+      "score": 75
+    },
+    {
+      "day": "2026-08-16",
+      "duration": 7.2,
+      "score": 75
+    },
+    {
+      "day": "2026-08-17",
+      "duration": 7.4,
+      "score": 75
+    },
+    {
+      "day": "2026-08-18",
+      "duration": 7.6000000000000005,
+      "score": 75
+    },
+    {
+      "day": "2026-08-19",
+      "duration": 7.2,
+      "score": 75
+    },
+    {
+      "day": "2026-08-20",
+      "duration": 7.4,
+      "score": 75
+    }
+  ],
+  "alerts": [],
+  "recommendations": []
+}

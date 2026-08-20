@@ -1,0 +1,17 @@
+{
+  "z2_current": "6:30",
+  "z2_speed": 2.5641,
+  "threshold": "5:20",
+  "threshold_speed": 3.125,
+  "threshold_base": "5:20",
+  "interval": "4:55",
+  "interval_speed": 3.3898,
+  "interval_base": "4:55",
+  "easy": "6:50",
+  "easy_speed": 2.439,
+  "long_run": "6:40",
+  "long_speed": 2.5,
+  "tenk_pace_speed": 3.2258,
+  "updated": "2026-08-20",
+  "source": "example"
+}

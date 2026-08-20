@@ -1,0 +1,10 @@
+{
+  "acwr": {
+    "acwr": 1.05
+  },
+  "anomalies": [],
+  "weather": {
+    "temp_c": 16,
+    "humidity": 60
+  }
+}

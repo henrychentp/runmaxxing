@@ -1,0 +1,10 @@
+__pycache__/
+.pytest_cache/
+.venv/
+*.pyc
+data/session-history/
+data/dynamic_session.json
+data/vo2max_history.json
+data/eight_sleep_history.json
+data/decision_log.json
+data/*.tmp

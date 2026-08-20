@@ -1,0 +1,19 @@
+{
+  "oura": {
+    "stress": {
+      "stress_high_min": 20
+    },
+    "resilience": {
+      "level": "solid"
+    },
+    "spo2": {
+      "average": 96,
+      "breathing_disturbance_index": 0
+    },
+    "vo2_max": {
+      "day": "2026-08-18",
+      "vo2_max": 48.0
+    }
+  },
+  "eight_sleep": {}
+}
