@@ -1,0 +1,18 @@
+{
+  "$id": "fitness_freshness",
+  "type": "object",
+  "required": ["current"],
+  "properties": {
+    "current": {
+      "type": "object",
+      "required": ["fitness_ctl", "fatigue_atl", "form_tsb"],
+      "properties": {
+        "fitness_ctl": { "type": "number" },
+        "fatigue_atl": { "type": "number" },
+        "form_tsb": { "type": "number" },
+        "status": { "type": "string" }
+      }
+    },
+    "trend": { "type": "array" }
+  }
+}

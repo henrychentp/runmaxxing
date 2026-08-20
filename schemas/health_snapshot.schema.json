@@ -1,0 +1,11 @@
+{
+  "$id": "health_snapshot",
+  "type": "object",
+  "properties": {
+    "visceral_fat": { "type": "number" },
+    "visceral_fat_7d_avg": { "type": "number" },
+    "body_fat": { "type": "number" },
+    "body_fat_7d_avg": { "type": "number" },
+    "muscle_mass": { "type": "number" }
+  }
+}

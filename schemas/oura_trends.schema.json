@@ -1,0 +1,40 @@
+{
+  "$id": "oura_trends",
+  "type": "object",
+  "required": ["hrv", "resting_hr"],
+  "properties": {
+    "period": { "type": "string" },
+    "sleep": { "type": "object" },
+    "hrv": {
+      "type": "object",
+      "required": ["trend"],
+      "properties": {
+        "average": { "type": "number" },
+        "trend": { "type": "string" },
+        "baseline_30d": { "type": "number" },
+        "baseline_30d_sd": { "type": "number" },
+        "daily": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["day", "hrv"],
+            "properties": {
+              "day": { "type": "string" },
+              "hrv": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "resting_hr": {
+      "type": "object",
+      "properties": {
+        "trend": { "type": "string" },
+        "average": { "type": "number" }
+      }
+    },
+    "nightly": { "type": "array" },
+    "alerts": { "type": "array" },
+    "recommendations": { "type": "array" }
+  }
+}

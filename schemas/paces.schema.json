@@ -1,0 +1,29 @@
+{
+  "$id": "paces",
+  "type": "object",
+  "required": [
+    "easy_speed",
+    "z2_speed",
+    "threshold_speed",
+    "interval_speed",
+    "long_speed",
+    "updated"
+  ],
+  "properties": {
+    "easy": { "type": "string" },
+    "easy_speed": { "type": "number" },
+    "z2_current": { "type": "string" },
+    "z2_speed": { "type": "number" },
+    "threshold": { "type": "string" },
+    "threshold_speed": { "type": "number" },
+    "threshold_base": { "type": "string" },
+    "interval": { "type": "string" },
+    "interval_speed": { "type": "number" },
+    "interval_base": { "type": "string" },
+    "long_run": { "type": "string" },
+    "long_speed": { "type": "number" },
+    "tenk_pace_speed": { "type": "number" },
+    "updated": { "type": "string" },
+    "source": { "type": "string" }
+  }
+}

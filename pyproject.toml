@@ -16,6 +16,7 @@ dev = ["pytest>=8"]
 
 [project.scripts]
 runmaxxing = "session_selector:cli"
+runmaxxing-check = "check_inputs:cli"
 
 [tool.setuptools]
 py-modules = [
@@ -24,6 +25,7 @@ py-modules = [
   "calibrate",
   "hrmax_baseline",
   "rhr_baseline",
+  "check_inputs",
 ]
 
 [tool.pytest.ini_options]

@@ -1,0 +1,18 @@
+{
+  "$id": "recent_activities",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["date", "type"],
+    "properties": {
+      "name": { "type": "string" },
+      "type": { "type": "string" },
+      "date": { "type": "string" },
+      "distance_km": { "type": ["number", "null"] },
+      "duration_min": { "type": ["number", "null"] },
+      "avg_hr": { "type": ["number", "null"] },
+      "max_hr": { "type": ["number", "null"] },
+      "trainer": { "type": "boolean" }
+    }
+  }
+}

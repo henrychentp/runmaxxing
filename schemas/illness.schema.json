@@ -1,0 +1,9 @@
+{
+  "$id": "illness",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "expires": { "type": "string" },
+    "reason": { "type": "string" }
+  }
+}

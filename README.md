@@ -16,6 +16,16 @@ python3 -m pip install -e ".[dev]"
 
 Copy `athlete.example.json` to `data/athlete.json` and edit your numbers. That live file is gitignored.
 
+## For people who use an LLM
+
+Point a coding agent at this repo and your export (Oura, Strava, CSV). Paste:
+
+```
+Read SKILL.md and schemas/. Map my export into data/*.json. Do not invent live health numbers. Do not pick the workout. Run runmaxxing-check and fix every FIX line. Then run runmaxxing and show data/dynamic_session.json.
+```
+
+The agent is the plumber. The picker is the referee.
+
 ## What it reads
 
 Put files in `data/` (examples ship in this repo):
@@ -40,6 +50,7 @@ Public knobs live in `athlete.example.json` at the repo root. Copy that file to 
 ## Run
 
 ```bash
+runmaxxing-check
 runmaxxing
 ```
 

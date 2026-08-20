@@ -1,0 +1,18 @@
+{
+  "$id": "week_plan",
+  "type": "object",
+  "properties": {
+    "week_start": { "type": "string" },
+    "cycle_week": { "type": "integer" },
+    "cycle_type": { "type": "string" },
+    "phase": { "type": "integer" },
+    "phase_desc": { "type": "string" },
+    "target_km": { "type": "number" },
+    "actual_km": { "type": "number" },
+    "long_run_target_km": { "type": "number" },
+    "days_left": { "type": "integer" },
+    "aerobic_min_done": { "type": "number" },
+    "aerobic_min_target": { "type": "number" },
+    "budget": { "type": "object" }
+  }
+}

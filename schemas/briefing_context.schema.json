@@ -1,0 +1,20 @@
+{
+  "$id": "briefing_context",
+  "type": "object",
+  "properties": {
+    "acwr": {
+      "type": "object",
+      "properties": {
+        "acwr": { "type": "number" }
+      }
+    },
+    "anomalies": { "type": "array" },
+    "weather": {
+      "type": "object",
+      "properties": {
+        "temp_c": { "type": "number" },
+        "humidity": { "type": "number" }
+      }
+    }
+  }
+}

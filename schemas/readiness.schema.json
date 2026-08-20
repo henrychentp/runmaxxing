@@ -1,0 +1,28 @@
+{
+  "$id": "readiness",
+  "type": "object",
+  "required": ["score", "components", "updated"],
+  "properties": {
+    "score": { "type": "number" },
+    "grade": { "type": "string" },
+    "stale": { "type": "boolean" },
+    "stale_reason": { "type": "string" },
+    "updated": { "type": "string" },
+    "source": { "type": "string" },
+    "components": {
+      "type": "object",
+      "required": ["injury_flag"],
+      "properties": {
+        "oura_readiness": { "type": "number" },
+        "oura_stale": { "type": "boolean" },
+        "sleep_quality": { "type": "number" },
+        "recent_load": { "type": "number" },
+        "injury_flag": { "type": "number" },
+        "load_risk_flag": { "type": "number" },
+        "acwr": { "type": "number" },
+        "tsb": { "type": "number" },
+        "tsb_stale": { "type": "boolean" }
+      }
+    }
+  }
+}

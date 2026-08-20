@@ -1,0 +1,8 @@
+{
+  "$id": "recovery_signals",
+  "type": "object",
+  "properties": {
+    "oura": { "type": "object" },
+    "eight_sleep": { "type": "object" }
+  }
+}

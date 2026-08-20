@@ -41,6 +41,7 @@ from datetime import datetime, date, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import check_inputs
 import rhr_baseline  # single source of truth, shared with analytics.sh
 import hrmax_baseline  # single source of truth for max HR (12mo rolling, guarded)
 
@@ -2101,6 +2102,7 @@ def build_gym_session(key):
 # ── Main ───────────────────────────────────────────────────
 def main():
     apply_runtime_env()
+    check_inputs.report()
     today = selector_today()
     dow = today.strftime("%A")  # "Monday", "Tuesday", etc.
 

@@ -15,5 +15,7 @@ jobs:
           python-version: "3.12"
       - name: Install
         run: pip install -e ".[dev]"
+      - name: Check inputs
+        run: python3 check_inputs.py
       - name: Test
         run: pytest tests/ -q

@@ -1,0 +1,25 @@
+{
+  "$id": "athlete",
+  "type": "object",
+  "required": [
+    "goal_priority",
+    "muscle_baseline_kg",
+    "volume_floor_min",
+    "vol_ramp_cap",
+    "vol_ramp_2wk_cap",
+    "fallback_hrmax",
+    "fallback_rhr",
+    "z2_hr_ceiling"
+  ],
+  "properties": {
+    "source": { "type": "string" },
+    "goal_priority": { "type": "string", "enum": ["fat_loss", "speed", "balanced"] },
+    "muscle_baseline_kg": { "type": "number" },
+    "volume_floor_min": { "type": "integer" },
+    "vol_ramp_cap": { "type": "number" },
+    "vol_ramp_2wk_cap": { "type": "number" },
+    "fallback_hrmax": { "type": "integer" },
+    "fallback_rhr": { "type": "integer" },
+    "z2_hr_ceiling": { "type": "integer" }
+  }
+}
