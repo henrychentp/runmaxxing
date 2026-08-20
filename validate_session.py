@@ -88,17 +88,20 @@ def check_single_mode(session):
     return issues
 
 
-def validate():
-    today = date.today()
+def validate(decision=None, today=None):
+    today = today or date.today()
     reds, ambers = [], []
 
     # ── Selector output present & parseable ───────────────────────────────
-    try:
-        d = json.loads(DATA.read_text())
-    except Exception as e:
-        return {"status": "red", "emoji": "⛔",
-                "summary": "Workout could not be read — script likely failed.",
-                "detail": [f"dynamic_session.json unreadable: {e}"]}
+    if decision is not None:
+        d = decision
+    else:
+        try:
+            d = json.loads(DATA.read_text())
+        except Exception as e:
+            return {"status": "red", "emoji": "⛔",
+                    "summary": "Workout could not be read — script likely failed.",
+                    "detail": [f"dynamic_session.json unreadable: {e}"]}
 
     # ── Engine-reported data integrity (strongest signal) ─────────────────
     # The selector records any missing/stale CORE input and falls back to easy/rest.
@@ -155,7 +158,7 @@ def validate():
                 bucket.append(f"{label} has no data.")
             elif ds > limit:
                 bucket.append(f"{label} last synced {ds}d ago — {'core safety input stale, do not trust' if key == 'oura' else 'may be stale'}.")
-    else:
+    elif decision is None:
         ambers.append("Could not read data dates (DB busy) — freshness unverified.")
 
     # ── Verdict ───────────────────────────────────────────────────────────
@@ -175,6 +178,6 @@ def validate():
 
 if __name__ == "__main__":
     badge = validate()
-    print(json.dumps(badge))
+    print(json.dumps(badge, indent=2, sort_keys=True))
     # Exit 0 always — this is an advisory stamp, not a build gate.
     sys.exit(0)

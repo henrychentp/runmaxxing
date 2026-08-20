@@ -45,6 +45,11 @@ from rhr_baseline import rhr_baseline  # single source of truth, shared with ana
 from hrmax_baseline import hrmax_baseline  # single source of truth for max HR (12mo rolling, guarded)
 
 
+def dump_json(obj) -> str:
+    """Stable public JSON: sorted keys, 2-space indent, trailing newline."""
+    return json.dumps(obj, indent=2, sort_keys=True) + "\n"
+
+
 def atomic_write_text(path: Path, content: str) -> None:
     """Atomic write via tmp + rename so concurrent readers never see partial writes."""
     tmp = path.with_suffix(path.suffix + ".tmp")
@@ -55,6 +60,23 @@ def atomic_write_text(path: Path, content: str) -> None:
     os.replace(tmp, path)
 
 DATA_DIR = Path(__file__).resolve().parent / "data"
+
+
+def apply_runtime_env():
+    """Honor SESSION_SELECTOR_DATA_DIR for tests and replay. Call at start of main()."""
+    global DATA_DIR
+    override = os.environ.get("SESSION_SELECTOR_DATA_DIR")
+    if override:
+        DATA_DIR = Path(override)
+
+
+def selector_today():
+    """Honor SESSION_SELECTOR_TODAY=YYYY-MM-DD so a week can be replayed."""
+    raw = os.environ.get("SESSION_SELECTOR_TODAY")
+    if raw:
+        return date.fromisoformat(raw)
+    return date.today()
+
 
 def load_recent_activities():
     """Load recent activities without calling a private Strava helper.
@@ -1843,7 +1865,7 @@ def build_session(key, p, readiness, tsb, long_run_cap_km=None, decoupling=None,
         wu_pace = _vo2_section_pace("warmup", p["easy"])
         rec_pace = _vo2_section_pace("recovery", p["recovery"])
         cd_pace = _vo2_section_pace("cooldown", p["walk"])
-        rotate_4x4 = (date.today().isocalendar()[1] % 3 == 0)
+        rotate_4x4 = (selector_today().isocalendar()[1] % 3 == 0)
         if rotate_4x4:
             reps = 4 if tsb > TSB_MODERATE else 3
             return (
@@ -1884,7 +1906,7 @@ def build_session(key, p, readiness, tsb, long_run_cap_km=None, decoupling=None,
         # Interface contract: distance-mode workouts accept only
         # a pace and a distance. Do not emit distance reps, recoveries, or a rest pace;
         # use time-based sessions when recoveries are required.
-        if date.today().isocalendar()[1] % 2 == 0:
+        if selector_today().isocalendar()[1] % 2 == 0:
             return (
                 "HARD: 5 km at current 10K pace", "hard", "45-55 min",
                 [
@@ -2038,7 +2060,8 @@ def build_gym_session(key):
 
 # ── Main ───────────────────────────────────────────────────
 def main():
-    today = date.today()
+    apply_runtime_env()
+    today = selector_today()
     dow = today.strftime("%A")  # "Monday", "Tuesday", etc.
 
     # Load data (with defensive defaults for missing/corrupt files)
@@ -2071,7 +2094,7 @@ def main():
         # Staleness guard: a dead refresh pipeline must not silently serve old paces.
         _p_updated = paces_raw.get("updated")
         try:
-            _p_age = (date.today() - datetime.strptime(str(_p_updated), "%Y-%m-%d").date()).days
+            _p_age = (today - datetime.strptime(str(_p_updated), "%Y-%m-%d").date()).days
         except (ValueError, TypeError):
             _p_age = None
         if _p_age is None:
@@ -3236,7 +3259,7 @@ def main():
             gen_day = session.get("generated") or today.isoformat()
             dated = hist_dir / f"{gen_day}.json"
             if not dated.exists():
-                atomic_write_text(dated, json.dumps(session, indent=2))
+                atomic_write_text(dated, dump_json(session))
             for old in sorted(hist_dir.glob("*.json"))[:-120]:  # keep ~120 days
                 try:
                     old.unlink()
@@ -3263,7 +3286,7 @@ def main():
                 # Still write the auto-computed output to a draft file so the
                 # reasoning is available for inspection without overwriting the pin.
                 draft_path = DATA_DIR / "dynamic_session_draft.json"
-                atomic_write_text(draft_path, json.dumps(output, indent=2))
+                atomic_write_text(draft_path, dump_json(output))
                 # Archive the PINNED session (what's actually prescribed today) so a
                 # next-day run analysis grades against it, not "prescription unavailable".
                 _archive_session(existing)
@@ -3271,10 +3294,12 @@ def main():
         except (json.JSONDecodeError, OSError):
             pass  # corrupt existing file — safe to overwrite
 
-    atomic_write_text(out_path, json.dumps(output, indent=2))
+    atomic_write_text(out_path, dump_json(output))
     _archive_session(output)
-    print(json.dumps(output, indent=2))
+    return output
 
 
 if __name__ == "__main__":
-    main()
+    result = main()
+    if result is not None:
+        print(dump_json(result), end="")

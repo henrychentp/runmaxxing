@@ -33,6 +33,19 @@ python3 session_selector.py
 
 Writes `data/dynamic_session.json`.
 
+### Replay a week
+
+Pin the selector to a fixed calendar day and an alternate data directory (for tests or regression checks):
+
+```bash
+export SESSION_SELECTOR_TODAY=2026-08-20
+export SESSION_SELECTOR_DATA_DIR=/tmp/runmaxxing-replay
+unset HEALTH_DB_PATH   # optional: use fallback RHR/HRmax instead of DuckDB
+python3 session_selector.py
+```
+
+Copy `data/*.json` into `SESSION_SELECTOR_DATA_DIR` first. Omit `dynamic_session.json` and any `session-history/` archive. Strip same-day activities from `recent_activities.json` if you want a morning-before-the-run snapshot.
+
 ```bash
 python3 -m pytest tests/ -q
 ```
