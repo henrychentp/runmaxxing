@@ -1,4 +1,4 @@
-# Session Selector
+# Runmaxxing
 
 Daily workout picker for endurance runners who also lift.
 
