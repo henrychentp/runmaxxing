@@ -54,6 +54,7 @@ def test_week_replay_frozen_2026_08_20(tmp_path, monkeypatch, expected):
         out = session_selector.main()
     finally:
         session_selector.DATA_DIR = previous_data_dir
+        session_selector.apply_athlete_config()
 
     winner = out["recommendation"]["workout"]
     blocked = out.get("blocked", {})

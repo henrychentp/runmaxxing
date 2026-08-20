@@ -6,6 +6,16 @@ It scores candidate sessions (easy Z2, long run, VO2 intervals, threshold, strid
 
 This public copy is the decision engine plus example JSON. It does not include live health exports, API tokens, or a private Strava helper.
 
+## Install
+
+```bash
+git clone https://github.com/henrychentp/runmaxxing.git
+cd runmaxxing
+python3 -m pip install -e ".[dev]"
+```
+
+Copy `athlete.example.json` to `data/athlete.json` and edit your numbers. That live file is gitignored.
+
 ## What it reads
 
 Put files in `data/` (examples ship in this repo):
@@ -23,9 +33,17 @@ Put files in `data/` (examples ship in this repo):
 | `recent_activities.json` | Recent runs and lifts (or set `SESSION_SELECTOR_RECENT_CMD`) |
 | `illness.json` | Optional manual illness override |
 
-Wire your own sync (Oura, Strava, scale) to write the same shapes. Optional DuckDB: set `HEALTH_DB_PATH` for rolling RHR and max HR. If it is unset, the engine uses fallback RHR 60 and HRmax 190.
+Wire your own sync (Oura, Strava, scale) to write the same shapes. Optional DuckDB: set `HEALTH_DB_PATH` for rolling RHR and max HR. If it is unset, the engine uses the fallbacks in `athlete.example.json`.
+
+Public knobs live in `athlete.example.json` at the repo root. Copy that file to `data/athlete.json` for your numbers.
 
 ## Run
+
+```bash
+runmaxxing
+```
+
+Or:
 
 ```bash
 python3 session_selector.py
@@ -61,7 +79,9 @@ python3 -m pytest tests/ -q
 - Post-ultra recovery window from event duration, not TSB
 - Illness file forces rest
 
-Edit `GOAL_PRIORITY` (`fat_loss` / `speed` / `balanced`) and `MUSCLE_BASELINE` in `session_selector.py` for your block.
+Edit `data/athlete.json` (copy from `athlete.example.json`): `goal_priority` is `fat_loss`, `speed`, or `balanced`. Set `muscle_baseline_kg` to your lean mass.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 
 ## License
 

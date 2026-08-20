@@ -41,8 +41,8 @@ from datetime import datetime, date, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from rhr_baseline import rhr_baseline  # single source of truth, shared with analytics.sh
-from hrmax_baseline import hrmax_baseline  # single source of truth for max HR (12mo rolling, guarded)
+import rhr_baseline  # single source of truth, shared with analytics.sh
+import hrmax_baseline  # single source of truth for max HR (12mo rolling, guarded)
 
 
 def dump_json(obj) -> str:
@@ -59,7 +59,44 @@ def atomic_write_text(path: Path, content: str) -> None:
         os.fsync(f.fileno())
     os.replace(tmp, path)
 
-DATA_DIR = Path(__file__).resolve().parent / "data"
+REPO_ROOT = Path(__file__).resolve().parent
+DATA_DIR = REPO_ROOT / "data"
+MUSCLE_BASELINE = 50.0
+Z2_HR_CEILING = 149
+
+
+def athlete_config_path():
+    override = os.environ.get("SESSION_SELECTOR_ATHLETE")
+    if override:
+        return Path(override)
+    live = DATA_DIR / "athlete.json"
+    if live.exists():
+        return live
+    return REPO_ROOT / "athlete.example.json"
+
+
+def apply_athlete_config(cfg=None):
+    """Load athlete knobs from JSON. Example file is public; live copy stays local."""
+    global VOLUME_FLOOR_MIN, GOAL_PRIORITY, GOAL_PROFILE
+    global VOL_RAMP_CAP, VOL_RAMP_2WK_CAP, HRMAX, RHR_DEFAULT
+    global MUSCLE_BASELINE, Z2_HR_CEILING
+    if cfg is None:
+        cfg = json.loads(athlete_config_path().read_text())
+    priority = cfg.get("goal_priority", "speed")
+    if priority not in GOAL_PROFILES:
+        priority = "speed"
+    GOAL_PRIORITY = priority
+    GOAL_PROFILE = GOAL_PROFILES[GOAL_PRIORITY]
+    VOLUME_FLOOR_MIN = int(cfg.get("volume_floor_min", 150))
+    VOL_RAMP_CAP = float(cfg.get("vol_ramp_cap", 1.12))
+    VOL_RAMP_2WK_CAP = float(cfg.get("vol_ramp_2wk_cap", 1.30))
+    MUSCLE_BASELINE = float(cfg.get("muscle_baseline_kg", 50.0))
+    Z2_HR_CEILING = int(cfg.get("z2_hr_ceiling", 149))
+    hrmax_baseline.FALLBACK_HRMAX = int(cfg.get("fallback_hrmax", 190))
+    rhr_baseline.FALLBACK_RHR = int(cfg.get("fallback_rhr", 60))
+    HRMAX = hrmax_baseline.hrmax_baseline()
+    RHR_DEFAULT = rhr_baseline.rhr_baseline()
+    return cfg
 
 
 def apply_runtime_env():
@@ -68,6 +105,7 @@ def apply_runtime_env():
     override = os.environ.get("SESSION_SELECTOR_DATA_DIR")
     if override:
         DATA_DIR = Path(override)
+    apply_athlete_config()
 
 
 def selector_today():
@@ -131,14 +169,16 @@ VOL_RAMP_2WK_CAP = 1.30   # ≤30% over any 2-week window
 # the refresh pipeline is down and pace-led targets are no longer tracking data.
 PACES_STALE_DAYS = 2      # stale when (today - updated) > this
 
-# Karvonen Z2 HR targeting (HRmax 190 = Strava-observed max; RHR = rolling 30d Oura average)
-HRMAX = hrmax_baseline()  # 12-month rolling observed max HR (guarded); falls back to 190
-RHR_DEFAULT = rhr_baseline()  # rolling 30d average of Oura nightly RHR; falls back to 57
+# Karvonen Z2 HR targeting. Fallbacks come from athlete.example.json unless DuckDB is set.
+HRMAX = hrmax_baseline.hrmax_baseline()
+RHR_DEFAULT = rhr_baseline.rhr_baseline()
 
-def karvonen_z2_target(tsb, rhr=RHR_DEFAULT):
+def karvonen_z2_target(tsb, rhr=None):
     """Return (target_bpm, ceiling_bpm, label) for Z2 sessions."""
+    if rhr is None:
+        rhr = RHR_DEFAULT
     hrr = HRMAX - rhr
-    ceil = min(round(rhr + 0.70 * hrr), 149)  # hard cap at 149
+    ceil = min(round(rhr + 0.70 * hrr), Z2_HR_CEILING)
     if tsb < -30:
         target = round(rhr + 0.61 * hrr)  # deload: ~138
         return target, ceil, f"target HR {target} bpm (deload)"
@@ -2174,9 +2214,7 @@ def main():
         volume_floor = 165  # body fat above target range
         body_comp_note = f"BF {bf}% > 17% → volume floor raised to 165 min/week"
 
-    # Muscle protection: set MUSCLE_BASELINE to lean mass. Losing muscle = cutting too hard
-    # or gym adherence failure. Boost gym urgency when muscle is at risk.
-    MUSCLE_BASELINE = 50.0  # set to your lean-mass baseline (kg)
+    # Muscle protection: MUSCLE_BASELINE comes from athlete JSON (lean mass, kg).
     muscle_alert = ""
     muscle_emergency = False
     if muscle and muscle < MUSCLE_BASELINE - 0.5:
@@ -3299,7 +3337,11 @@ def main():
     return output
 
 
-if __name__ == "__main__":
+def cli():
     result = main()
     if result is not None:
         print(dump_json(result), end="")
+
+
+if __name__ == "__main__":
+    cli()

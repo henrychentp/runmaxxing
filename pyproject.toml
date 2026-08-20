@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "runmaxxing"
+version = "0.1.0"
+description = "Stimulus-based daily running workout picker"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Henry Chen" }]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+runmaxxing = "session_selector:cli"
+
+[tool.setuptools]
+py-modules = [
+  "session_selector",
+  "validate_session",
+  "calibrate",
+  "hrmax_baseline",
+  "rhr_baseline",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

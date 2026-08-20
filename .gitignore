@@ -7,4 +7,5 @@ data/dynamic_session.json
 data/vo2max_history.json
 data/eight_sleep_history.json
 data/decision_log.json
-data/*.tmp
+data/athlete.json
+data/dynamic_session_draft.json

@@ -1,0 +1,11 @@
+{
+  "source": "example",
+  "goal_priority": "speed",
+  "muscle_baseline_kg": 50.0,
+  "volume_floor_min": 150,
+  "vol_ramp_cap": 1.12,
+  "vol_ramp_2wk_cap": 1.3,
+  "fallback_hrmax": 190,
+  "fallback_rhr": 60,
+  "z2_hr_ceiling": 149
+}
